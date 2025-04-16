@@ -277,15 +277,10 @@
             }
         };
 
-        // Initialize language on page load
+        // Initialize language on page load - FIXED VERSION
         document.addEventListener('DOMContentLoaded', function() {
-            // Set initial language based on browser language or default to English
-            const browserLang = navigator.language || navigator.userLanguage;
-            if (browserLang.startsWith('zh')) {
-                document.getElementById("language").value = "zh";
-            } else {
-                document.getElementById("language").value = "en";
-            }
+            // Always set default language to English
+            document.getElementById("language").value = "en";
             
             // Apply the language
             changeLanguage();
