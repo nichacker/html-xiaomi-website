@@ -166,18 +166,18 @@
         <p id="bio">I am NICHOLAS. I have been working at Dignity for children for more than 7 years. Before I came to Dignity for children, I was a network security engineer. I spent about 3 months at SBIT Training Academy (SBIT Training Sdn Bhd). In order to make a future development, I started to enter the field of Information Technology at the age of 6 and won many big prizes.</p>
     </section>
     <footer>
-        <p>&copy; 2025 Xiaomi Corporation. All rights reserved.</p>
-        <p>
+        <p id="copyright">&copy; 2025 Xiaomi Corporation. All rights reserved.</p>
+        <div id="credits" style="margin-bottom: 10px;">
             Website developed by 
             <a href="https://dignityforchildren.org/donate/empower-a-child?gad_source=1&gclid=CjwKCAjwnPS-BhBxEiwAZjMF0lKPVewJKwGWzk75sVXR8qjJX3GPGD7KGChOCokgQFWZT_7ZyXj3GRoCIh4QAvD_BwE" target="_blank">
                 Dignity DC IT-DEPARTMENT
             </a>
-            <br>
-            by 
-            <a href="https://www.instagram.com/nichacker666?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
-                NICHOLAS
+        </div>
+        <div style="margin-top: 10px;">
+            <a href="https://www.instagram.com/nichacker666?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" style="color: #ff6700; text-decoration: underline; font-weight: bold; padding: 10px; border: 1px solid transparent; display: inline-block;">
+                Nicholas
             </a>
-        </p>
+        </div>
     </footer>
 
     <script>
@@ -190,7 +190,6 @@
                 bio: "I am NICHOLAS. I have been working at Dignity for children for more than 7 years. Before I came to Dignity for children, I was a network security engineer. I spent about 3 months at SBIT Training Academy (SBIT Training Sdn Bhd). In order to make a future development, I started to enter the field of Information Technology at the age of 6 and won many big prizes.",
                 copyright: "© 2025 NICHOLAS. All rights reserved.",
                 credits: "Website developed by ",
-                byLine: "by Nicholas",
                 navSu7: "Xiaomi SU7 Ultra",
                 navHome: "Home",
                 navContact: "Contact Us"
@@ -202,7 +201,6 @@
                 bio: "我是Nicholas我在Dignity for children工作了7年多。在加入Dignity for children之前，我是一名网络安全工程师。我曾在SBIT培训学院(SBIT Training Sdn Bhd)学习了大约3个月。为了未来发展，我从6岁开始进入信息技术领域，并赢得了许多大奖。",
                 copyright: "© 2025 Nicholas 版权所有",
                 credits: "网站由",
-                byLine: "Nicholas开发",
                 navSu7: "小米SU7 Ultra",
                 navHome: "首页",
                 navContact: "联系我们"
@@ -221,8 +219,7 @@
             document.getElementById('copyright').textContent = langData.copyright;
             document.getElementById('credits').innerHTML = langData.credits + 
                 '<a href="https://dignityforchildren.org/donate/empower-a-child?gad_source=1&gclid=CjwKCAjwnPS-BhBxEiwAZjMF0lKPVewJKwGWzk75sVXR8qjJX3GPGD7KGChOCokgQFWZT_7ZyXj3GRoCIh4QAvD_BwE" target="_blank">' + 
-                (language === 'zh' ? 'Dignity DC IT部门' : 'Dignity DC IT-DEPARTMENT') + '</a><br>' + 
-                langData.byLine;
+                (language === 'zh' ? 'Dignity DC IT部门' : 'Dignity DC IT-DEPARTMENT') + '</a>';
             
             // Update navigation
             document.getElementById('nav-su7').textContent = langData.navSu7;
@@ -238,9 +235,8 @@
 
         // Initialize language
         document.addEventListener('DOMContentLoaded', function() {
-            // Set default language based on browser preference
-            const browserLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
-            document.getElementById('language').value = browserLang;
+            // Always default to English instead of browser preference
+            document.getElementById('language').value = 'en';
             changeLanguage();
             
             // Add event listener for language change
