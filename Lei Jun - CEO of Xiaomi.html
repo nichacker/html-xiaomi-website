@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lei Jun - CEO of Xiaomi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        body[data-theme="light"] {
+            background-image: url('https://dw-media.dotdotnews.com/dams/product/image/202504/06/67f22a0fe4b0e62e723245ad1.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            color: #333;
+        }
+
+        body[data-theme="dark"] {
+            background-image: url('https://editorial.pxcrush.net/carsales/general/editorial/xiaomi-su7-ultra-3.jpeg?width=1024&height=682');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            color: #fff;
+        }
+
+        body[data-theme="dark"] #about p {
+            color: black;
+        }
+
+        header {
+            background-color: rgba(255, 103, 0, 0.8);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            color: black;
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .language-selector select {
+            padding: 5px;
+            border-radius: 4px;
+            border: none;
+        }
+
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+        }
+
+        body[data-theme="light"] nav {
+            background-color: white;
+        }
+
+        body[data-theme="light"] nav ul li a {
+            color: black;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #ff6700;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #222;
+            color: white;
+        }
+
+        body[data-theme="light"] footer {
+            background-color: white;
+            color: black;
+        }
+
+        footer a {
+            color: #ff6700;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        #theme-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="title">Lei Jun - CEO of Xiaomi</h1>
+        <div class="language-selector">
+            <label for="language">🌍</label>
+            <select id="language" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="zh">中文</option>
+            </select>
+        </div>
+        <p>Founder and CEO of Xiaomi Corporation</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html" id="nav-home">Home</a></li>
+            <li><a href="su7.html" id="nav-su7">Xiaomi SU7 Ultra</a></li>
+            <li><a href="https://forms.gle/DcHVrXTcunMysrY6A" target="_blank">Contact Us</a></li>
+        </ul>
+    </nav>
+    <section id="about">
+        <h2>About Lei Jun</h2>
+        <img src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1rl38M.img?w=768&h=576&m=6&x=1492&y=346&s=460&d=460" alt="Lei Jun">
+        <p>Lei Jun is a Chinese entrepreneur and the founder, chairman, and CEO of Xiaomi Corporation, one of the world's leading technology companies. Born on December 16, 1969, in Xiantao, Hubei, China, Lei Jun graduated from Wuhan University with a degree in Computer Science in 1991.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Xiaomi Corporation. All rights reserved.</p>
+        <p>
+            Website developed by <a href="https://dignityforchildren.org/donate/empower-a-child?gad_source=1&gclid=CjwKCAjwnPS-BhBxEiwAZjMF0lKPVewJKwGWzk75sVXR8qjJX3GPGD7KGChOCokgQFWZT_7ZyXj3GRoCIh4QAvD_BwE" target="_blank">Dignity DC IT-DEPARTMENT</a> 
+            <br>
+            by <a href="me.html" id="contact-link" target="_blank">Nicholas</a>
+        </p>
+    </footer>
+
+    <button id="theme-toggle">🌙</button>
+
+    <script>
+        function changeLanguage() {
+            const language = document.getElementById('language').value;
+            
+            const translations = {
+                en: {
+                    title: "Lei Jun - CEO of Xiaomi",
+                    subtitle: "Founder and CEO of Xiaomi Corporation",
+                    about: "About Lei Jun",
+                    bio: "Lei Jun is a Chinese entrepreneur and the founder, chairman, and CEO of Xiaomi Corporation, one of the world's leading technology companies. Born on December 16, 1969, in Xiantao, Hubei, China, Lei Jun graduated from Wuhan University with a degree in Computer Science in 1991.",
+                    copyright: "© 2025 Xiaomi Corporation. All rights reserved.",
+                    credits: "Website developed by Dignity DC IT-DEPARTMENT BY NICHOLAS",
+                    navSu7: "Xiaomi SU7 Ultra",
+                    navHome: "Home"
+                },
+                zh: {
+                    title: "雷军 - 小米CEO",
+                    subtitle: "小米集团创始人、董事长兼首席执行官",
+                    about: "关于雷军",
+                    bio: "雷军是中国著名企业家，小米集团的创始人、董事长兼首席执行官。1969年12月16日出生于湖北省仙桃市，1991年毕业于武汉大学计算机系。",
+                    copyright: "© 2025 小米公司 版权所有",
+                    credits: "网站由Dignity DC IT部门Nicholas开发",
+                    navSu7: "小米SU7 Ultra",
+                    navHome: "首页"
+                }
+            };
+
+            document.getElementById('title').textContent = translations[language].title;
+            document.querySelector('header p').textContent = translations[language].subtitle;
+            document.querySelector('#about h2').textContent = translations[language].about;
+            document.querySelector('#about p').textContent = translations[language].bio;
+            document.querySelector('footer p:first-child').textContent = translations[language].copyright;
+            document.querySelector('footer p:last-child').textContent = translations[language].credits;
+
+            const navLinks = document.querySelectorAll('nav ul li a');
+            navLinks[0].textContent = translations[language].navHome;
+            navLinks[1].textContent = translations[language].navSu7;
+
+            document.title = translations[language].title;
+
+            document.documentElement.lang = language;
+        }
+
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', currentTheme);
+        themeToggle.textContent = currentTheme === 'dark' ? '🌙' : '🌞';
+
+        themeToggle.addEventListener('click', () => {
+            const theme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.textContent = theme === 'dark' ? '🌙' : '🌞';
+        });
+    </script>
+</body>
+</html>
+

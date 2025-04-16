@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover the Xiaomi SU7 Ultra, a high-performance EV featuring 1548 PS, 0-100 km/h in 1.97 seconds, and competitive pricing.">
+    <link rel="icon" href="./su7logo.ico" type="image/ico">
+    <style>
+        /* Default dark mode styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            background-image: url('https://pbs.twimg.com/media/GnA2Kb6bwAA7bsF?format=jpg&name=4096x4096');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: relative;
+        }
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .language-selector select {
+            padding: 5px;
+            border-radius: 4px;
+            border: none;
+            background-color: #444;
+            color: white;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        section {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1; /* Ensure it stays on top of the background */
+        }
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            margin-top: 20px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+        footer a {
+            color: #ff6700;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Light mode styles */
+        .light-mode header {
+            background-color: white;
+            color: black;
+        }
+        .light-mode nav {
+            background-color: white;
+        }
+        .light-mode nav ul li a {
+            color: black;
+        }
+        .light-mode footer {
+            background-color: white;
+            color: black;
+        }
+
+        /* Button to toggle mode */
+        .mode-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .mode-toggle:hover {
+            background-color: #666;
+        }
+        
+        /* Buy Now Button Style */
+        .buy-now-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 15px 0;
+            background-color: #ff6700; /* Xiaomi orange color */
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .buy-now-btn:hover {
+            background-color: #ff8c3e;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(255, 103, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="main-title">Welcome to the Xiaomi SU7 Ultra</h1>
+        <div class="language-selector">
+            <label for="language">🌍</label>
+            <select id="language" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="zh">中文</option>
+            </select>
+        </div>
+    </header>
+   
+    <nav>
+        <ul>
+            <li><a href="index.html" class="nav-link" data-key="navHome">Home</a></li>
+            <li><a href="Lei Jun - CEO of Xiaomi.html" class="nav-link" data-key="navAbout">About Lei Jun</a></li>
+            <li><a href="https://forms.gle/DcHVrXTcunMysrY6A" target="_blank" class="nav-link" data-key="navContact">Contact Us</a></li>
+        </ul>
+    </nav>
+    <section id="about-xiaomi-su7-ultra">
+        <h2 id="about-title">About Xiaomi SU7 Ultra</h2>
+        <img class="overlay-img" src="https://s1.xiaomiev.com/activity-outer-assets/0328/images/su7Ultra/pc/ultra_1.jpg" alt="Xiaomi SU7 Ultra">
+        <p id="description-1">The SU7 Ultra is Xiaomi's answer to ultra-high-performance EVs like the Lucid Air Sapphire and the Tesla Model S Plaid. Developed based on the same SU7 platform, the Ultra Prototype is powered by a tri-motor setup consisting of two HyperEngine V8s motors and one HyperEngine V6s motor. With a combined 1548 PS (1526hp), the company claims that the SU7 Ultra is more powerful than a Bugatti Chiron and the McLaren Speedtail.</p>
+        <p id="description-2">The Xiaomi SU7 Ultra is now officially on sale, and it's one of the fastest sedans in China! With an impressive 1,548 PS of power, it can accelerate from 0 to 100 km/h in just 1.97 seconds, making it a true performance beast. Priced at 529,900 RMB (approximately RM325,000), the SU7 Ultra is positioned as a high-performance electric vehicle that rivals top-tier models like the Tesla Model S Plaid.</p>
+        <h3 id="highlights-title">Key highlights of the Xiaomi SU7 Ultra:</h3>
+        <ul>
+            <li><strong id="power-label">Power:</strong> <span id="power-value">1,548 PS (horsepower)</span></li>
+            <li><strong id="accel-label">Acceleration:</strong> <span id="accel-value">0-100 km/h in 1.97 seconds</span></li>
+            <li><strong id="price-label">Price:</strong> <span id="price-value">529,900 RMB (~RM325,000)</span></li>
+            <li><strong id="position-label">Positioning:</strong> <span id="position-text">One of the fastest sedans in China, competing with high-performance EVs like the Tesla Model S Plaid.</span></li>
+        </ul>
+        
+        <p id="description-3">This launch solidifies Xiaomi's entry into the electric vehicle market with a focus on cutting-edge performance and affordability. The SU7 Ultra's combination of insane power, lightning-fast acceleration, and competitive pricing makes it a strong contender in the premium EV segment, particularly in the Chinese market.</p>
+        <img src="https://static-content-live.caricarz.com/media_library/post/14548/13825815/conversions/7f693eb62380dfcad7b063ecd0536469-full_normal.jpg" alt="Xiaomi SU7 Ultra Concept">
+        <iframe src="https://www.youtube.com/embed/irVTiUf2kyM" title="Xiaomi SU7 Ultra Prototype"></iframe>
+        <p id="learn-more">You can learn more by checking out the <a href="https://www.xiaomiev.com/prototype?spmref=MiShop_PC.mihomepage.mtl_6699caffac546f00015bcd32.1" target="_blank" id="learn-more-link">Xiaomi SU7 Ultra Prototype</a>.</p>
+        
+        <!-- BUY NOW Button Added Here -->
+        <a href="buy.html" id="buy-now-btn" class="buy-now-btn">BUY NOW!</a>
+    </section>
+    <footer>
+        <p id="copyright">&copy; 2025 Xiaomi Corporation. All rights reserved.</p>
+        <p id="credits">
+            Website developed by <a href="https://dignityforchildren.org/donate/empower-a-child?gad_source=1&gclid=CjwKCAjwnPS-BhBxEiwAZjMF0lKPVewJKwGWzk75sVXR8qjJX3GPGD7KGChOCokgQFWZT_7ZyXj3GRoCIh4QAvD_BwE" target="_blank">Dignity DC IT-DEPARTMENT</a>
+            <br>
+            by <a href="me.html" id="contact-link">Nicholas</a>
+        </p>
+    </footer>
+
+    <button class="mode-toggle" onclick="toggleMode()">🌙</button>
+
+    <script>
+        function toggleMode() {
+            const body = document.body;
+            const modeButton = document.querySelector(".mode-toggle");
+            body.classList.toggle("light-mode");
+
+            // Toggle button text between 🌙 and 🌞
+            if (body.classList.contains("light-mode")) {
+                modeButton.textContent = "🌞";
+            } else {
+                modeButton.textContent = "🌙";
+            }
+        }
+
+        // Translation dictionary
+        const translations = {
+            en: {
+                title: "Welcome to the Xiaomi SU7 Ultra",
+                aboutTitle: "About Xiaomi SU7 Ultra",
+                description1: "The SU7 Ultra is Xiaomi's answer to ultra-high-performance EVs like the Lucid Air Sapphire and the Tesla Model S Plaid. Developed based on the same SU7 platform, the Ultra Prototype is powered by a tri-motor setup consisting of two HyperEngine V8s motors and one HyperEngine V6s motor. With a combined 1548 PS (1526hp), the company claims that the SU7 Ultra is more powerful than a Bugatti Chiron and the McLaren Speedtail.",
+                description2: "The Xiaomi SU7 Ultra is now officially on sale, and it's one of the fastest sedans in China! With an impressive 1,548 PS of power, it can accelerate from 0 to 100 km/h in just 1.97 seconds, making it a true performance beast. Priced at 529,900 RMB (approximately RM325,000), the SU7 Ultra is positioned as a high-performance electric vehicle that rivals top-tier models like the Tesla Model S Plaid.",
+                highlightsTitle: "Key highlights of the Xiaomi SU7 Ultra:",
+                powerLabel: "Power:",
+                powerValue: "1,548 PS (horsepower)",
+                accelLabel: "Acceleration:",
+                accelValue: "0-100 km/h in 1.97 seconds",
+                priceLabel: "Price:",
+                priceValue: "529,900 RMB (~RM325,000)",
+                positionLabel: "Positioning:",
+                position: "One of the fastest sedans in China, competing with high-performance EVs like the Tesla Model S Plaid.",
+                description3: "This launch solidifies Xiaomi's entry into the electric vehicle market with a focus on cutting-edge performance and affordability. The SU7 Ultra's combination of insane power, lightning-fast acceleration, and competitive pricing makes it a strong contender in the premium EV segment, particularly in the Chinese market.",
+                learnMore: "You can learn more by checking out the ",
+                learnMoreLink: "Xiaomi SU7 Ultra Prototype",
+                copyright: "© 2025 Xiaomi Corporation. All rights reserved.",
+                credits: "Website developed by Dignity DC IT-DEPARTMENT BY NICHOLAS",
+                contactText: "Nicholas",
+                navHome: "Home",
+                navAbout: "About Lei Jun",
+                navContact: "Contact Us",
+                buyNow: "BUY NOW!"
+            },
+            zh: {
+                title: "欢迎了解小米SU7 Ultra",
+                aboutTitle: "关于小米SU7 Ultra",
+                description1: "SU7 Ultra是小米对标Lucid Air Sapphire和特斯拉Model S Plaid等超高性能电动车的答案。基于相同的SU7平台开发，Ultra原型车采用三电机设置，包括两个HyperEngine V8s电机和一个HyperEngine V6s电机。综合功率达到1548 PS（1526马力），公司声称SU7 Ultra比布加迪Chiron和迈凯伦Speedtail更强大。",
+                description2: "小米SU7 Ultra现已正式上市，是中国最快的轿车之一！凭借惊人的1548 PS功率，它可以在1.97秒内从0加速到100公里/小时，是真正的性能怪兽。售价529,900元人民币（约合325,000马币），SU7 Ultra定位为高性能电动车，与特斯拉Model S Plaid等顶级车型竞争。",
+                highlightsTitle: "小米SU7 Ultra的主要亮点:",
+                powerLabel: "功率:",
+                powerValue: "1,548 PS（马力）",
+                accelLabel: "加速:",
+                accelValue: "0-100公里/小时仅需1.97秒",
+                priceLabel: "价格:",
+                priceValue: "529,900元人民币（约合325,000马币）",
+                positionLabel: "定位:",
+                position: "中国最快的轿车之一，与特斯拉Model S Plaid等高性能电动车竞争。",
+                description3: "此次发布巩固了小米进入电动车市场的决心，专注于尖端性能和可负担性。SU7 Ultra将惊人的功率、闪电般的加速和具有竞争力的价格结合在一起，使其成为中国市场高端电动车领域的有力竞争者。",
+                learnMore: "您可以通过查看",
+                learnMoreLink: "小米SU7 Ultra原型车",
+                copyright: "© 2025 小米公司 版权所有",
+                credits: "网站由Dignity DC IT部门Nicholas开发",
+                contactText: "尼古拉斯",
+                navHome: "首页",
+                navAbout: "关于雷军",
+                navContact: "联系方式",
+                buyNow: "立即购买!"
+            }
+        };
+
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial language based on browser language or default to English
+            const browserLang = navigator.language || navigator.userLanguage;
+            if (browserLang.startsWith('zh')) {
+                document.getElementById("language").value = "zh";
+            } else {
+                document.getElementById("language").value = "en";
+            }
+            
+            // Apply the language
+            changeLanguage();
+        });
+
+        function changeLanguage() {
+            const language = document.getElementById("language").value;
+            const translation = translations[language];
+            
+            // Debug output to console to help track any issues
+            console.log("Changing language to:", language);
+            console.log("Translation object:", translation);
+            
+            // Update page title
+            document.getElementById("main-title").textContent = translation.title;
+            document.getElementById("about-title").textContent = translation.aboutTitle;
+            document.getElementById("description-1").textContent = translation.description1;
+            document.getElementById("description-2").textContent = translation.description2;
+            document.getElementById("highlights-title").textContent = translation.highlightsTitle;
+            
+            // Update specifications with separate labels and values
+            document.getElementById("power-label").textContent = translation.powerLabel;
+            document.getElementById("power-value").textContent = translation.powerValue;
+            document.getElementById("accel-label").textContent = translation.accelLabel;
+            document.getElementById("accel-value").textContent = translation.accelValue;
+            document.getElementById("price-label").textContent = translation.priceLabel;
+            document.getElementById("price-value").textContent = translation.priceValue;
+            document.getElementById("position-label").textContent = translation.positionLabel;
+            document.getElementById("position-text").textContent = translation.position;
+            
+            document.getElementById("description-3").textContent = translation.description3;
+            
+            // Handle the "learn more" text and link separately
+            document.getElementById("learn-more").innerHTML = 
+                translation.learnMore + ' <a href="https://www.xiaomiev.com/prototype?spmref=MiShop_PC.mihomepage.mtl_6699caffac546f00015bcd32.1" target="_blank" id="learn-more-link">' + 
+                translation.learnMoreLink + '</a>.';
+            
+            document.getElementById("copyright").textContent = translation.copyright;
+            document.getElementById("credits").innerHTML = 
+                translation.credits.includes("<br>") ? translation.credits : 
+                "Website developed by <a href='https://dignityforchildren.org/donate/empower-a-child?gad_source=1&gclid=CjwKCAjwnPS-BhBxEiwAZjMF0lKPVewJKwGWzk75sVXR8qjJX3GPGD7KGChOCokgQFWZT_7ZyXj3GRoCIh4QAvD_BwE' target='_blank'>Dignity DC IT-DEPARTMENT</a><br>by <a href='me.html' id='contact-name'>" + translation.contactText + "</a>";
+            
+            // Update navigation elements - FIXED VERSION
+            document.querySelectorAll('.nav-link').forEach(function(link) {
+                const key = link.getAttribute('data-key');
+                console.log("Processing nav link:", key);
+                
+                if (key && translation[key]) {
+                    console.log("Found translation for " + key + ":", translation[key]);
+                    // Force text update with proper encoding for Chinese characters
+                    link.innerHTML = translation[key];
+                    
+                    // Double check the update was successful
+                    console.log("Updated text:", link.innerHTML);
+                } else {
+                    console.log("No translation found for key:", key);
+                }
+            });
+            
+            document.getElementById("buy-now-btn").textContent = translation.buyNow;
+            
+            // Update the document language attribute
+            document.documentElement.lang = language;
+        }
+    </script>
+</body>
+</html>

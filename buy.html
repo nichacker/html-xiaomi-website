@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SU7 Ultra - Car Configurator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .language-selector label {
+            font-size: 18px;
+        }
+        
+        .language-selector select {
+            background-color: #252525;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .model-name {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .main-content {
+            display: flex;
+            flex: 1;
+        }
+        
+        .car-display {
+            flex: 2;
+            position: relative;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .car-image {
+            width: 100%;
+            height: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .view-360-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .view-360-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .view-360-button svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .car-options {
+            flex: 1;
+            padding: 20px;
+            margin-left: 20px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .tab {
+            padding: 10px 15px;
+            margin-right: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .tab.active {
+            font-weight: bold;
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #fff;
+        }
+        
+        .option-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .color-options, .wheel-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .color-option, .wheel-option {
+            border: 2px solid transparent;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .color-option.selected, .wheel-option.selected {
+            border-color: #ffcc00;
+        }
+        
+        .color-option img, .wheel-option img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .color-info, .wheel-info {
+            padding: 10px;
+            background-color: #252525;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .color-name, .wheel-name {
+            font-size: 14px;
+        }
+        
+        .color-price, .wheel-price {
+            font-size: 14px;
+        }
+        
+        .price-section {
+            margin-top: 30px;
+            padding: 20px 0;
+            border-top: 1px solid #333;
+        }
+        
+        .total-price {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .original-price {
+            font-size: 16px;
+            text-decoration: line-through;
+            color: #888;
+            margin-left: 15px;
+        }
+        
+        .delivery-info {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        
+        .next-button {
+            background-color: #ffcc00;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .next-button:hover {
+            background-color: #e6b800;
+        }
+        
+        .option-container {
+            display: none;
+        }
+        
+        .option-container.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="su7.html" id="go-back" class="go-back-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                   
+                </svg>
+                <span data-en="Go Back" data-zh="返回" style="color: white;">Go Back</span>
+            </a>
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#ff6700">
+                    <path d="M256 64C150 64 64 150 64 256s86 192 192 192 192-86 192-192S362 64 256 64zm0 352c-88.2 0-160-71.8-160-160S167.8 96 256 96s160 71.8 160 160-71.8 160-160 160z"/>
+                    <path d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm0 160c-35.3 0-64-28.7-64-64s28.7-64 64-64 64 28.7 64 64-28.7 64-64 64z"/>
+                </svg>
+            </div>
+            <div class="language-selector">
+                <label for="language">🌍</label>
+                <select id="language">
+                    <option value="en">English</option>
+                    <option value="zh">中文</option>
+                </select>
+            </div>
+        </header>
+
+        
+        <div class="model-name" data-en="SU7 Ultra" data-zh="SU7 Ultra ">SU7 Ultra</div>
+        
+        <div class="main-content">
+            <div class="car-display">
+                <img src="https://media-hosting.imagekit.io/1db79a86dff440e5/1744349148769.jpg?Expires=1838957281&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=ObqwlxrjNn9qpiGsAMMoQnNF0XC6CNo1RBMSfRdR2K-hPwOz8Ls-SUrA5jaGLkaEZmvlGY0qJ~UgU3YTfQ1ePdHZxttWnz1NxgBZa6Jb69BoJfCCbPOYH78FoE2XmEgNqHq8WOgObg8GKDjXORL7cXqtj67YB9DG0uzA2G9y5Sm8k70J1suJ32crCHizArQKfr95emsOPKeHOTUyJ5nTubjdW5wuSGACOPA6O9dcMU9zZbKlLHp4ebTjlkWiguM0KKkOcb7jK9jlGiEHsGC2DO2E0BtVbuQUyDG6HMYgV0ncos1-1O5Ps~rIyhW2-1YwbvA3iqxusymQCEawN3JV6g__" alt="SU7 Ultra in yellow" class="car-image" id="mainCarImage">
+                
+                <a href="https://gamemcu.com/su7/" target="_blank" class="view-360-button" id="view360Button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                        <path d="M12 18v-2"/>
+                        <path d="M8 12a4 4 0 1 1 8 0"/>
+                        <path d="M12 6v2"/>
+                    </svg>
+                    <span data-en="360° View" data-zh="360° 视图">360° View</span>
+                </a>
+            </div>
+            
+            <div class="car-options">
+              <!-- Fixed tabs div -->
+              <div class="tabs">
+                <div class="tab active" data-tab="exterior" data-en="Exterior" data-zh="外观">Exterior</div>
+                <div class="tab" data-tab="wheels" data-en="Wheels" data-zh="轮毂">Wheels</div>
+                <div class="tab" data-tab="interior" data-en="Interior" data-zh="内饰">Interior</div>
+                <div class="tab" data-tab="payment" data-en="Payment" data-zh="付款">Payment</div>
+              </div>
+
+                <!-- Fixed: Made exterior options active first, not wheels -->
+                <div class="option-container active" id="exterior-options">
+                    <div class="option-section">
+                        <div class="section-title" data-en="Paint" data-zh="车漆">Paint</div>
+                        
+                        <div class="color-options">
+                            <!-- Yellow -->
+                            <div class="color-option selected" data-color="yellow">
+                                <img src="https://media-hosting.imagekit.io/1db79a86dff440e5/1744349148769.jpg?Expires=1838957281&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=ObqwlxrjNn9qpiGsAMMoQnNF0XC6CNo1RBMSfRdR2K-hPwOz8Ls-SUrA5jaGLkaEZmvlGY0qJ~UgU3YTfQ1ePdHZxttWnz1NxgBZa6Jb69BoJfCCbPOYH78FoE2XmEgNqHq8WOgObg8GKDjXORL7cXqtj67YB9DG0uzA2G9y5Sm8k70J1suJ32crCHizArQKfr95emsOPKeHOTUyJ5nTubjdW5wuSGACOPA6O9dcMU9zZbKlLHp4ebTjlkWiguM0KKkOcb7jK9jlGiEHsGC2DO2E0BtVbuQUyDG6HMYgV0ncos1-1O5Ps~rIyhW2-1YwbvA3iqxusymQCEawN3JV6g__" alt="Yellow SU7">
+                                <div class="color-info">
+                                    <div class="color-name" data-en="Lightning Yellow" data-zh="闪电黄">Lightning Yellow</div>
+                                    <div class="color-price">RM 5,850</div>
+                                </div>
+                            </div>
+                            
+                            <!-- White -->
+                            <div class="color-option" data-color="white">
+                                <img src="https://media-hosting.imagekit.io/2abca700774e46e5/1744349230120.jpg?Expires=1838957281&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=uQ~td3~D9ttdMa8b5mfWbjlTDwI7QV75C5ss1z0kg-aqFBxxdhe1xZYsnHX0i2a2Oz2LX6KYgyCwr3xi~86M1SNjfh1sbCAhSBZMB5FtNtjLPJSqktE0XQ8J2H~BwiZbHOSxw2z3knbVKpbN4b0XU3HMR4xsEDKl-YHZk~-HGQswnwOZyY9YqeYzNR0wgjWZWOthr2VImyPx0OqMGIPiJyJyRTXqXw7AnCVPJWTRhHl3wVMkEDO36rXHmMeLpYuGBhfkfR4piSpn0yWbWJQ5VkTfyi2yUks13pb9DJhU4-rs5uu03LKhYduMckSENvBVEI-6UzDeTlaFEgEQd9vyBQ__" alt="White SU7">
+                                <div class="color-info">
+                                    <div class="color-name" data-en="Pearl White" data-zh="珍珠白">Pearl White</div>
+                                    <div class="color-price">RM 5,850</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Silver -->
+                            <div class="color-option" data-color="silver">
+                                <img src="https://media-hosting.imagekit.io/1a8553c863e145fa/1744475657116.jpg?Expires=1839083720&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=s4VUeS6qcFCphCdAr46uauDUz9HdM3BZY4rtmE6vRFVd5B7Icx3SWSjUoPuFp2yG7v2DVvrIIkwTl5ibHux-gkca2AGsuPJq2UVFqd8lcAVzikw7XPDF8PZXeBUxTQ1cw0FsTJRsZmyWxAi9kCqsNKjIfImDXlvTMrCVCH9u5HUNllqBFUQjiIpZSE4eZvz90OJF3O4MrPQ3EXPj-zVPo2sEpKHW~Capvm7MjdSA6pelJH1rIwkAb5pIre0ASL~60~k49nagBNYHCKQsWNnxTzkvr4DJk1khyJjRPA9K-ZFgJ3vU5iMxEcKob6qu3bZl8yd~8DmhwCfvMU7qtW1s-Q__" alt="Silver SU7">
+                                <div class="color-info">
+                                    <div class="color-name" data-en="Space Silver" data-zh="太空银">Space Silver</div>
+                                    <div class="color-price">RM 5,850</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Green -->
+                            <div class="color-option" data-color="green">
+                                <img src="https://media-hosting.imagekit.io/487044a1d39c4fa1/1744475663684.jpg?Expires=1839083720&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=REZuu7c2DTYegRX~Hmlaum-Bb6munTchbIsbVDdH4AwuzWewnfbxcVqqBhImdilMl~tcylpczWMxGgw5GydqXi6i88Kjpr4~Yld6tWRAPyEMy9wigikv2v1pdIn9LgWTEnyGqLxMHExLH~wW2gEjHe4P9wrPpEkGqCwCWU1N51FJzkl2vAc6XZlGEk~ZILioTw4B1p1Mrm~cLhhx7lsKk6tcAtQZD27wqjWud1yDaeXD8gHP6JqPSniB36U~SYvR0N-HqEHVdbGDkHA4u6iJfbT0DJNj~PIihiwxZAOFCFObnRNHEoENMUwKwTZAvu~05KoCsRDdPzePXHYEA-3Cpw__" alt="Green SU7">
+                                <div class="color-info">
+                                    <div class="color-name" data-en="Jade Green" data-zh="翡翠绿">Jade Green</div>
+                                    <div class="color-price">RM 5,850</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Black -->
+                            <div class="color-option" data-color="blue">
+                                <img src="https://media-hosting.imagekit.io/2c4baca5392f4346/1744475669212.jpg?Expires=1839083720&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Lp0k8hX0jrklmR0PX6jmG6nzMlzLbhsEYHWUQ-64qNIj4T46mLbNJyQOfOA76JM4w3glngDiB3sIgagBfXkbWcY7HN~oxDUfl0-9EDbdi1NqmjnDcYO5PGXFyotDOlSFnlH20xA4kfQypYluxwwToGOraDBHcufVNMrJQrSodAOUPXGaXujhUiJXTQhvp5ivLm99KlKs-z4~jentdUgp61JjdUwgMVYyJmiKqqL4Wd-l9-6ENXpshHgND04ChHorelnRJa1f4XcKIn95GxmUHz8HugvsB4ZulyXFGgW5YFlelXsaTQ-Vmme4uhGs30FUH~cFtnpoYudYWi244RzDWA__" alt="Black SU7">
+                                <div class="color-info">
+                                    <div class="color-name" data-en="Obsidian Black" data-zh="黑曜石黑">Obsidian Black</div>
+                                    <div class="color-price">RM 5,850</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Wheels Options Container - fixed: removed "active" class -->
+                <div class="option-container" id="wheels-options">
+                    <div class="option-section">
+                        <div class="section-title" data-en="Wheels" data-zh="轮毂">Wheels</div>
+                        
+                        <div class="wheel-options">
+                            <!-- Standard U-shaped wheel -->
+                            <div class="wheel-option selected" data-wheel="standard">
+                                <img src="https://q9.itc.cn/q_70/images03/20250304/968fa8b62b844fdab7176ea9d3cebd68.jpeg" alt="21-inch U-shaped wheel">
+                                <div class="wheel-info">
+                                    <div class="wheel-name" data-en="21-inch U-shaped wheel" data-zh="21英寸U形轮毂">21-inch U-shaped wheel</div>
+                                    <div class="wheel-price" data-en="Included" data-zh="已包含">Included</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Yellow outline wheel -->
+                            <div class="wheel-option" data-wheel="yellow-outline">
+                                <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ0CQvO2GyXOEjvaljN8W_PrutOhL1FrLOuimmhfUQxq2qsyEsD" alt="21-inch U-shaped wheels with yellow outline">
+                                <div class="wheel-info">
+                                    <div class="wheel-name" data-en="21-inch U-shaped wheels with yellow outline" data-zh="21英寸黄色边缘U形轮毂">21-inch U-shaped wheels with yellow outline</div>
+                                    <div class="wheel-price">RM 300</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Graphite black forged wheel -->
+                            <div class="wheel-option" data-wheel="graphite-black">
+                                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSY-m0VFHyW1rAVBwClaW_QBOKuSpCEa_8YyxdouR-aXwvvwyuk" alt="21-inch U-shaped forged wheels, graphite black">
+                                <div class="wheel-info">
+                                    <div class="wheel-name" data-en="21-inch U-shaped forged wheels, graphite black" data-zh="21英寸石墨黑锻造U形轮毂">21-inch U-shaped forged wheels, graphite black</div>
+                                    <div class="wheel-price">RM 300</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Metallic neodymium wheel -->
+                            <div class="wheel-option" data-wheel="metallic-neodymium">
+                                <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ0CQvO2GyXOEjvaljN8W_PrutOhL1FrLOuimmhfUQxq2qsyEsD" alt="21-inch U-shaped forged wheels, metallic neodymium">
+                                <div class="wheel-info">
+                                    <div class="wheel-name" data-en="21-inch U-shaped forged wheels, metallic neodymium" data-zh="21英寸金属钕锻造U形轮毂">21-inch U-shaped forged wheels, metallic neodymium</div>
+                                    <div class="wheel-price">RM 300</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Low wind resistance wheel -->
+                            <div class="wheel-option" data-wheel="low-wind">
+                                <img src="https://cjh2.autoimg.cn/chejiahaodfs/g31/M0A/B4/2B/1000x0_autohomecar__ChxoHWeWbsaAJTE2AAkvsGA2KJc824.png.webp?x_image_process=text/5paw5Ye66KGM/fontSize/16" alt="21-inch U-shaped low wind resistance wheels">
+                                <div class="wheel-info">
+                                    <div class="wheel-name" data-en="21-inch U-shaped low wind resistance wheels" data-zh="21英寸低风阻U形轮毂">21-inch U-shaped low wind resistance wheels</div>
+                                    <div class="wheel-price">RM 300</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Interior Options Container -->
+                <div class="option-container" id="interior-options">
+                    <div class="option-section">
+                        <div class="section-title" data-en="Interior Coming Soon" data-zh="内饰选项即将推出">Interior Coming Soon</div>
+                        <p data-en="Interior customization options will be available soon." data-zh="内饰定制选项将很快推出。">Interior customization options will be available soon.</p>
+                    </div>
+                </div>
+                
+                <!-- Payment Container -->
+                <div class="option-container" id="payment-options">
+                    <div class="option-section">
+                        <div class="section-title" data-en="Order Details" data-zh="订单详情">Order Details</div>
+                        
+                        <form id="payment-form">
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; margin-bottom: 5px; color: #ccc;" data-en="Full Name" data-zh="全名">Full Name</label>
+                                <input type="text" placeholder="Enter your full name" data-en-placeholder="Enter your full name" data-zh-placeholder="输入您的全名" style="width: 100%; padding: 10px; background: #252525; border: 1px solid #444; color: #fff; border-radius: 4px;">
+                            </div>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; margin-bottom: 5px; color: #ccc;" data-en="Email Address" data-zh="电子邮件地址">Email Address</label>
+                                <input type="email" placeholder="Enter your email" data-en-placeholder="Enter your email" data-zh-placeholder="输入您的电子邮件" style="width: 100%; padding: 10px; background: #252525; border: 1px solid #444; color: #fff; border-radius: 4px;">
+                            </div>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; margin-bottom: 5px; color: #ccc;" data-en="Phone Number" data-zh="电话号码">Phone Number</label>
+                                <input type="tel" placeholder="Enter your phone number" data-en-placeholder="Enter your phone number" data-zh-placeholder="输入您的电话号码" style="width: 100%; padding: 10px; background: #252525; border: 1px solid #444; color: #fff; border-radius: 4px;">
+                            </div>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; margin-bottom: 5px; color: #ccc;" data-en="Country or Region" data-zh="国家或地区">Country or Region</label>
+                                <select style="width: 100%; padding: 10px; background: #252525; border: 1px solid #444; color: #fff; border-radius: 4px;">
+                                    <option value="" disabled selected data-en="Select your country" data-zh="选择您的国家">Select your country</option>
+                                    <option value="my" data-en="Malaysia" data-zh="马来西亚">Malaysia</option>
+                                    <option value="sg" data-en="Singapore" data-zh="新加坡">Singapore</option>
+                                    <option value="id" data-en="Indonesia" data-zh="印度尼西亚">Indonesia</option>
+                                    <option value="th" data-en="Thailand" data-zh="泰国">Thailand</option>
+                                    <option value="ph" data-en="Philippines" data-zh="菲律宾">Philippines</option>
+                                    <option value="vn" data-en="Vietnam" data-zh="越南">Vietnam</option>
+                                    <option value="other" data-en="Other" data-zh="其他">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; margin-bottom: 5px; color: #ccc;" data-en="Address" data-zh="地址">Address</label>
+                                <input type="text" placeholder="Street address" data-en-placeholder="Street address" data-zh-placeholder="街道地址" style="width: 100%; padding: 10px; background: #252525; border: 1px solid #444; color: #fff; border-radius: 4px; margin-bottom: 10px;">
+                                <input type="text" placeholder="Apartment, suite, unit, etc. (optional)" data-en-placeholder="Apartment, suite, unit, etc. (optional)" data-zh-placeholder="公寓，套房，单位等（可选）" style="width: 100%; padding: 10px; background: #252525; border: 1px solid #444; color: #fff; border-radius: 4px; margin-bottom: 10px;">
+                                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                    <input type="text" placeholder="City" data-en-placeholder="City" data-zh-placeholder="城市" style="flex: 2; padding: 10px; background: #252525; border: 1px solid #444; color: #fff; border-radius: 4px;">
+                                    <input type="text" placeholder="State/Province" data-en-placeholder="State/Province" data-zh-placeholder="州/省" style="flex: 1; padding: 10px; background: #252525; border: 1px solid #444; color: #fff; border-radius: 4px;">
+                                    <input type="text" placeholder="Postal code" data-en-placeholder="Postal code" data-zh-placeholder="邮政编码" style="flex: 1; padding: 10px; background: #252525; border: 1px solid #444; color: #fff; border-radius: 4px;">
+                                </div>
+                            </div>
+                            
+                            <div class="section-title" data-en="Payment Information" data-zh="支付信息">Payment Information</div>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; margin-bottom: 5px; color: #ccc;" data-en="Payment Method" data-zh="支付方式">Payment Method</label>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <div style="display: flex; align-items: center; padding: 10px; background: #252525; border: 1px solid #444; border-radius: 4px;">
+                                        <input type="radio" name="payment-method" id="credit-card" checked>
+                                        <label for="credit-card" style="margin-left: 10px;" data-en="Credit/Debit Card" data-zh="信用卡/借记卡">Credit/Debit Card</label>
+                                    </div>
+                                    <div style="display: flex; align-items: center; padding: 10px; background: #252525; border: 1px solid #444; border-radius: 4px;">
+                                        <input type="radio" name="payment-method" id="qr-payment">
+                                        <label for="qr-payment" style="margin-left: 10px;" data-en="QR Payment" data-zh="二维码支付">QR Payment</label>
+                                    </div>
+                                    <div style="display: flex; align-items: center; padding: 10px; background: #252525; border: 1px solid #444; border-radius: 4px;">
+                                        <input type="radio" name="payment-method" id="bank-transfer">
+                                        <label for="bank-transfer" style="margin-left: 10px;" data-en="Bank Transfer" data-zh="银行转账">Bank Transfer</label>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                            
+                            <div id="credit-card-details" style="margin-bottom: 20px;">
+                                <div style="margin-bottom: 15px;">
+                                    <label style="display: block; margin-bottom: 5px; color: #ccc;" data-en="Card Number" data-zh="卡号">Card Number</label>
+                                    <input type="text" placeholder="XXXX XXXX XXXX XXXX" style="width: 100%; padding: 10px; background: #252525; border: 1px solid #444; color:#fff; border-radius: 4px;">
+                                </div>
+                                <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                                    <div style="flex: 1;">
+                                        <label style="display: block; margin-bottom: 5px; color: #ccc;" data-en="Expiration Date" data-zh="到期日">Expiration Date</label>
+                                        <input type="text" placeholder="MM/YY" style="width: 100%; padding: 10px; background: #252525; border: 1px solid #444; color: #fff; border-radius: 4px;">
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <label style="display: block; margin-bottom: 5px; color: #ccc;" data-en="Security Code (CVV)" data-zh="安全码 (CVV)">Security Code (CVV)</label>
+                                        <input type="text" placeholder="XXX" style="width: 100%; padding: 10px; background: #252525; border: 1px solid #444; color: #fff; border-radius: 4px;">
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <label style="display: block; margin-bottom: 5px; color: #ccc;" data-en="Card Type" data-zh="卡类型">Card Type</label>
+                                    <div style="display: flex; gap: 10px;">
+                                        <div style="background: #252525; border: 1px solid #444; border-radius: 4px; padding: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; width: 70px; height: 40px;">
+                                            <span>Visa</span>
+                                        </div>
+                                        <div style="background: #252525; border: 1px solid #444; border-radius: 4px; padding: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; width: 70px; height: 40px;">
+                                            <span>MC</span>
+                                        </div>
+                                        <div style="background: #252525; border: 1px solid #444; border-radius: 4px; padding: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; width: 70px; height: 40px;">
+                                            <span>Amex</span>
+                                        </div>
+                                        <div style="background: #252525; border: 1px solid #444; border-radius: 4px; padding: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; width: 70px; height: 40px;">
+                                            <span data-en="Other" data-zh="其他">Other</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="qr-payment-details" style="margin-bottom: 20px; display: none;">
+                                <div style="background: #252525; border: 1px solid #444; border-radius: 4px; padding: 20px; display: flex; flex-direction: column; align-items: center;">
+                                    <p style="margin-bottom: 15px; text-align: center;" data-en="Scan this QR code to make a payment of RM 35,085 (10% deposit)" data-zh="扫描此二维码以支付定金 RM 35,085（总价的10%）">Scan this QR code to make a payment of RM 35,085 (10% deposit)</p>
+                                    <div style="width: 200px; height: 200px; background-color: #fff; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                                        <img src="https://media-hosting.imagekit.io/b88172ff8f90453d/1744456755838_100%20(2).JPG?Expires=1839065338&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=SBC1~o9hMKtrJ6EoZQJTaimkAs0SH2ZDfD1wrNa5vHwsVzsotULAQ7wTkjAJI0C0enyNkN~kRMJn3wQ-WbukesISvuUMc7X5aXl3q83qyrN0eaL4cXqIfZgZ2FGvMgmxNH3ikGW7I0~4kKaiQ77FCji0qxq-DQ2F2AVRQM0zcV741yrPEfO-JcF9kKqHkJnBSF-BeeSPsHDVt3Y6FPg1mcH5Wtw6I3eOEHlRYBQZ6Y0QYD6ex7dOHsHzgDgx-CHZyaXBn8gWc-5nqfM~Vo7QPSJhb~I5snrxjKxRJrhSP2IJz6wkJoJ3tNYbJPlDL3ks75dPfg~e9SveMStJb6-8eQ__" alt="Payment QR Code" style="max-width: 100%; max-height: 100%;">
+                                    </div>
+                                    <p style="margin-bottom: 5px; color: #ccc; text-align: center;" data-en="QR code valid for 15:00 minutes" data-zh="二维码有效期为5:00分钟">QR code valid for 5:00 minutes</p>
+                                    <button style="background-color: #444; border: none; color: white; padding: 10px 15px; border-radius: 4px; cursor: pointer; margin-top: 10px;" data-en="Refresh QR Code" data-zh="刷新二维码">Refresh QR Code</button>
+                                </div>
+                            </div>
+                            
+                            <div id="bank-transfer-details" style="margin-bottom: 20px; display: none;">
+                                <div style="background: #252525; border: 1px solid #444; border-radius: 4px; padding: 20px;">
+                                    <p style="margin-bottom: 15px;" data-en="Please transfer RM 35,085 (10% deposit) to the following bank account:" data-zh="请将定金 RM 35,085（总价的10%）转入以下银行账户：">Please transfer RM 35,085 (10% deposit) to the following bank account:</p>
+                                    <div style="margin-bottom: 10px;">
+                                        <p style="margin-bottom: 5px; color: #ccc;" data-en="Bank Account Number:" data-zh="银行账号：">Bank Account Number:</p>
+                                        <p style="font-weight: bold; font-size: 18px;">182120233279</p>
+                                    </div>
+                                    <div style="margin-bottom: 10px;">
+                                        <p style="margin-bottom: 5px; color: #ccc;" data-en="Account Name:" data-zh="账户名称：">Account Name:</p>
+                                        <p>SU7 Ultra Motors Sdn. Bhd.</p>
+                                    </div>
+                                    <div style="margin-bottom: 10px;">
+                                        <p style="margin-bottom: 5px; color: #ccc;" data-en="Bank Name:" data-zh="银行名称：">Bank Name:</p>
+                                        <p data-en="Malaysia National Bank" data-zh="马来西亚国家银行">Malaysia National Bank</p>
+                                    </div>
+                                    <div style="margin-bottom: 10px;">
+                                        <p style="margin-bottom: 5px; color: #ccc;" data-en="Reference:" data-zh="参考编号：">Reference:</p>
+                                        <p>SU7-<span id="order-reference">ORD-25041201</span></p>
+                                    </div>
+                                    <p style="margin-top: 15px; font-size: 14px; color: #888;" data-en="Please include the reference number in your bank transfer. Your order will be processed once payment is confirmed." data-zh="请在银行转账中注明参考编号。确认付款后将处理您的订单。">Please include the reference number in your bank transfer. Your order will be processed once payment is confirmed.</p>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: flex; align-items: center; cursor: pointer;">
+                                    <input type="checkbox" style="margin-right: 10px;">
+                                    <span data-en="I agree to the terms and conditions" data-zh="我同意条款和条件">I agree to the terms and conditions</span>
+                                </label>
+                            </div>
+                            
+                            <div style="margin-bottom: 20px;">
+                                <div style="padding: 15px; background-color: #252525; border-radius: 4px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                        <span data-en="Base Price:" data-zh="基本价格：">Base Price:</span>
+                                        <span id="summary-base-price">RM 345,000</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                        <span data-en="Paint (Lightning Yellow):" data-zh="车漆（闪电黄）：">Paint (Lightning Yellow):</span>
+                                        <span id="summary-paint">RM 5,850</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                        <span data-en="Wheels (21-inch U-shaped):" data-zh="轮毂（21英寸U形）：">Wheels (21-inch U-shaped):</span>
+                                        <span id="summary-wheels" data-en="Included" data-zh="已包含">Included</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-top: 10px; border-top: 1px solid #444;">
+                                        <span style="font-weight: bold;" data-en="Total:" data-zh="总计：">Total:</span>
+                                        <span id="summary-total" style="font-weight: bold;">RM 350,850</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;">
+                                        <span data-en="Deposit Required (10%):" data-zh="需要定金（10%）：">Deposit Required (10%):</span>
+                                        <span id="summary-deposit">RM 35,085</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="price-section">
+                    <div class="total-price">
+                        RM 345,000
+                        <span class="original-price">RM 383,250</span>
+                    </div>
+                    <div class="delivery-info" data-en="Estimated delivery in 22-25 weeks after order" data-zh="预计订单后22-25周内交付">Estimated delivery in 22-25 weeks after order</div>
+                    
+                    <button class="next-button" data-en="Wheels >" data-zh="轮毂 >">
+                        Wheels >
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confirmation screen -->
+    <div class="option-container" id="confirmation-screen" style="display: none;">
+        <div class="option-section" style="text-align: center;">
+            
+            
+            <div style="margin-top: 30px; margin-bottom: 30px;">
+                <h2 style="font-size: 24px; margin-bottom: 15px; color: #ffcc00;" data-en="Order Confirmed!" data-zh="订单已确认！">Order Confirmed!</h2>
+                <p style="margin-bottom: 10px;" data-en="Thank you for ordering your SU7 Ultra" data-zh="感谢您订购SU7 Ultra">Thank you for ordering your SU7 Ultra</p>
+                <p style="margin-bottom: 20px;" data-en="Order reference:" data-zh="订单参考编号：">Order reference: <span style="font-weight: bold;">SU7-ORD-25041201</span></p>
+                <p style="font-size: 14px; color: #888;" data-en="A confirmation email has been sent to your registered email address." data-zh="确认邮件已发送至您注册的电子邮件地址。">A confirmation email has been sent to your registered email address.</p>
+            </div>
+            
+            <div style="background: #252525; border: 1px solid #444; border-radius: 4px; padding: 20px; margin-bottom: 30px; text-align: left;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span data-en="Model:" data-zh="车型：">Model:</span>
+                    <span>SU7 Ultra - Lightning Yellow</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span data-en="Wheels:" data-zh="轮毂：">Wheels:</span>
+                    <span>21-inch U-shaped wheel</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-top: 10px; border-top: 1px solid #444;">
+                    <span style="font-weight: bold;" data-en="Total Amount:" data-zh="总金额：">Total Amount:</span>
+                    <span style="font-weight: bold;">RM 345,000</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 14px; color: #888;">
+                    <span data-en="Deposit Paid:" data-zh="已付定金：">Deposit Paid:</span>
+                    <span>RM 35,085</span>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <p style="margin-bottom: 10px;" data-en="Estimated delivery in 22-25 weeks" data-zh="预计22-25周内交付">Estimated delivery in 22-25 weeks</p>
+                <p style="font-size: 14px; color: #888;" data-en="You will be contacted by our team for the next steps." data-zh="我们的团队将联系您进行后续步骤。">You will be contacted by our team for the next steps.</p>
+            </div>
+            
+            <!-- Updated Return to Homepage link -->
+            <a href="home.html" id="nav-home" style="display: inline-block; background-color: #ffcc00; color: #000; border: none; padding: 12px 24px; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 20px; text-decoration: none;" data-en="Return to Homepage" data-zh="返回首页">
+                Return to Homepage
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainCarImage = document.getElementById('mainCarImage');
+            const view360Button = document.getElementById('view360Button');
+            const languageSelector = document.getElementById('language');
+            
+            // Language switching functionality
+            languageSelector.addEventListener('change', function() {
+                const language = this.value;
+                changeLanguage(language);
+            });
+            
+            // Function to change language
+            function changeLanguage(language) {
+                // Update all elements with data-en and data-zh attributes
+                const elementsWithLang = document.querySelectorAll('[data-' + language + ']');
+                elementsWithLang.forEach(element => {
+                    element.textContent = element.getAttribute('data-' + language);
+                });
+                
+                // Update placeholders for input fields
+                const inputsWithLang = document.querySelectorAll('[data-' + language + '-placeholder]');
+                inputsWithLang.forEach(input => {
+                    input.placeholder = input.getAttribute('data-' + language + '-placeholder');
+                });
+                
+                // Update document language attribute
+                document.documentElement.lang = language;
+                
+                console.log(`Language changed to: ${language}`);
+            }
+            
+            // 360 view button functionality
+            view360Button.addEventListener('click', function() {
+                window.open('https://gamemcu.com/su7/', '_blank');
+            });
+            
+            // Color selection
+            const colorOptions = document.querySelectorAll('.color-option');
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Update selected class
+                    colorOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    // Get the image source from the selected color's thumbnail
+                    const imgSrc = this.querySelector('img').src;
+                    
+                    // Update the main car image
+                    mainCarImage.src = imgSrc;
+                    
+                    // Update alt text
+                    const color = this.getAttribute('data-color');
+                    mainCarImage.alt = `SU7 Ultra in ${color}`;
+                    
+                    console.log(`Selected color: ${color}`);
+                    
+                    // Update price
+                    updateTotalPrice();
+                });
+            });
+            
+            // Wheel selection
+            const wheelOptions = document.querySelectorAll('.wheel-option');
+            wheelOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Update selected class
+                    wheelOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    // Update the main car image (in a real application, this would show the car with the selected wheels)
+                    const wheel = this.getAttribute('data-wheel');
+                    
+                    console.log(`Selected wheel: ${wheel}`);
+                    
+                    // Calculate new price
+                    updateTotalPrice();
+                });
+            });
+
+            // Tab navigation
+            const tabs = document.querySelectorAll('.tab');
+            const optionContainers = document.querySelectorAll('.option-container');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding options container
+                    const tabId = this.getAttribute('data-tab');
+                    optionContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(`${tabId}-options`).classList.add('active');
+                    
+                    // Update next button text
+                    updateNextButtonText();
+                    
+                    console.log(`Selected tab: ${tabId}`);
+                });
+            });
+            
+            // Payment method selection
+            const paymentMethods = document.querySelectorAll('input[name="payment-method"]');
+            paymentMethods.forEach(method => {
+                method.addEventListener('change', function() {
+                    // Hide all payment detail containers
+                    document.getElementById('credit-card-details').style.display = 'none';
+                    document.getElementById('qr-payment-details').style.display = 'none';
+                    document.getElementById('bank-transfer-details').style.display = 'none';
+                    
+                    // Show corresponding payment details
+                    if (this.id === 'credit-card') {
+                        document.getElementById('credit-card-details').style.display = 'block';
+                    } else if (this.id === 'qr-payment') {
+                        document.getElementById('qr-payment-details').style.display = 'block';
+                    } else if (this.id === 'bank-transfer') {
+                        document.getElementById('bank-transfer-details').style.display = 'block';
+                    }
+                });
+            });
+            
+            // Next button functionality
+            const nextButton = document.querySelector('.next-button');
+            nextButton.addEventListener('click', function() {
+                // Find the currently active tab
+                const activeTab = document.querySelector('.tab.active');
+                const activeTabId = activeTab.getAttribute('data-tab');
+                
+                // Determine which tab should be next
+                let nextTabId;
+                if (activeTabId === 'exterior') {
+                    nextTabId = 'wheels';
+                } else if (activeTabId === 'wheels') {
+                    nextTabId = 'interior';
+                } else if (activeTabId === 'interior') {
+                    nextTabId = 'payment';
+                } else {
+                    // If we're on the payment tab, process the payment
+                    // Hide all option containers
+                    document.querySelectorAll('.option-container').forEach(container => {
+                        container.style.display = 'none';
+                    });
+                    
+                    // Show confirmation screen
+                    document.getElementById('confirmation-screen').style.display = 'block';
+                    
+                    // Hide tabs and next button
+                    document.querySelector('.tabs').style.display = 'none';
+                    document.querySelector('.price-section').style.display = 'none';
+                    
+                    return;
+                }
+                
+                // Activate the next tab
+                const nextTab = document.querySelector(`.tab[data-tab="${nextTabId}"]`);
+                if (nextTab) {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    nextTab.classList.add('active');
+                    
+                    // Show corresponding options container
+                    optionContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(`${nextTabId}-options`).classList.add('active');
+                    
+                    // Update the next button text
+                    updateNextButtonText();
+                    
+                    console.log(`Moved to tab: ${nextTabId}`);
+                }
+            });
+            
+            function updateNextButtonText() {
+                const activeTabId = document.querySelector('.tab.active').getAttribute('data-tab');
+                const language = languageSelector.value;
+                let buttonText;
+                
+                if (activeTabId === 'exterior') {
+                    buttonText = language === 'en' ? 'Wheels >' : '轮毂 >';
+                } else if (activeTabId === 'wheels') {
+                    buttonText = language === 'en' ? 'Interior >' : '内饰 >';
+                } else if (activeTabId === 'interior') {
+                    buttonText = language === 'en' ? 'Payment >' : '付款 >';
+                } else {
+                    buttonText = language === 'en' ? 'Place Order >' : '下订单 >';
+                }
+                
+                nextButton.textContent = buttonText;
+            }
+            
+            function updateTotalPrice() {
+                // Get base price
+                let totalPrice = 345000;
+                const language = languageSelector.value;
+                
+                // Add selected color price
+                const selectedColor = document.querySelector('.color-option.selected');
+                if (selectedColor) {
+                    const colorPriceText = selectedColor.querySelector('.color-price').textContent;
+                    const colorPrice = parseInt(colorPriceText.replace(/[^0-9]/g, '')) || 0;
+                    totalPrice += colorPrice;
+                }
+                
+                // Add selected wheel price
+                const selectedWheel = document.querySelector('.wheel-option.selected');
+                if (selectedWheel) {
+                    const wheelPriceText = selectedWheel.querySelector('.wheel-price').textContent;
+                    if (wheelPriceText !== 'Included' && wheelPriceText !== '已包含') {
+                        const wheelPrice = parseInt(wheelPriceText.replace(/[^0-9]/g, '')) || 0;
+                        totalPrice += wheelPrice;
+                    }
+                }
+                
+                // Update the displayed price
+                const totalPriceElement = document.querySelector('.total-price');
+                totalPriceElement.innerHTML = `RM ${totalPrice.toLocaleString()}<span class="original-price">RM ${(totalPrice + 38250).toLocaleString()}</span>`;
+                
+                // Also update summary elements directly if they exist
+                if (document.getElementById('summary-paint')) {
+                    const colorName = selectedColor ? selectedColor.querySelector('.color-name').textContent : (language === 'en' ? 'Lightning Yellow' : '闪电黄');
+                    const colorPrice = selectedColor ? selectedColor.querySelector('.color-price').textContent : 'RM 5,850';
+                    document.getElementById('summary-paint').textContent = colorPrice;
+                    
+                    const paintLabel = document.getElementById('summary-paint').previousElementSibling;
+                    paintLabel.textContent = language === 'en' ? `Paint (${colorName}):` : `车漆（${colorName}）：`;
+                }
+                
+                if (document.getElementById('summary-wheels')) {
+                    const wheelName = selectedWheel ? selectedWheel.querySelector('.wheel-name').textContent : (language === 'en' ? '21-inch U-shaped wheel' : '21英寸U形轮毂');
+                    const wheelPrice = selectedWheel ? selectedWheel.querySelector('.wheel-price').textContent : (language === 'en' ? 'Included' : '已包含');
+                    document.getElementById('summary-wheels').textContent = wheelPrice;
+                    
+                    const wheelLabel = document.getElementById('summary-wheels').previousElementSibling;
+                    wheelLabel.textContent = language === 'en' ? `Wheels (${wheelName.split(',')[0]}):` : `轮毂（${wheelName.split('，')[0]}）：`;
+                }
+                
+                if (document.getElementById('summary-total')) {
+                    document.getElementById('summary-total').textContent = `RM ${totalPrice.toLocaleString()}`;
+                }
+                
+                if (document.getElementById('summary-deposit')) {
+                    const depositValue = Math.round(totalPrice * 0.1);
+                    document.getElementById('summary-deposit').textContent = `RM ${depositValue.toLocaleString()}`;
+                }
+            }
+            
+            // Initialize the page
+            updateNextButtonText();
+        });
+    </script>
+</body>
+</html>

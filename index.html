@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="icon"
+    href="./Screenshot 2025-04-04 130321.png"
+    type="image/png"
+  />
+  <title>Homepage - Xiaomi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body[data-theme="light"] {
+      background-image: url('https://www.euractiv.com/wp-content/uploads/sites/2/2024/10/shutterstock_2448980815-1-scaled.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #333;
+    }
+
+    body[data-theme="dark"] {
+      background-image: url('https://media-hosting.imagekit.io/995a09e0e11f4c66/oIl2Bf1eAiGDIXKomAngiCwYEP9CAAa4DA2Alm~tplv-dy-lqen-new_1440_2160_q80.jpeg?Expires=1838783437&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=vhnE~2Zg~ub2J9MdMhLTfaC5gFr8JlhVykrspWskeuJfsYNAq-n~FDDETIHVLAp6J5kg9Jg1uC75YY29qS6llJJY0dH90GiFEXOcjxBNLkiPzcze88kswBgBwP4WT8QfENChqlqGjwYRRwi9tlXGtslox~z-ORAxcZVhnTnrnHFVbDd8JxH5adBoyiyRvwUbakGBsFlPUQEpjCDM-u-mspJDKx96TAuGthrIRFz59HmlcFHjyAjzpKDPm-QguKcI5BJ7hnK5Iy4mSJ52GB7e5nFKE3Igzmyc1YeSxUUW2OsKnl2R0Hr1LRgqkwVfF9cVX5mlzv5fcVFhHntAwAvr0w__');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #f0f0f0;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    body[data-theme="light"] header,
+    body[data-theme="dark"] header {
+      background-color: rgba(255, 103, 0, 0.85);
+      color: white;
+    }
+
+    .language-selector {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    #theme-toggle {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: white;
+    }
+
+    nav {
+      background-color: #333;
+      padding: 10px 0;
+    }
+
+    body[data-theme="light"] nav {
+      background-color: white;  /* Make background white in light theme */
+    }
+
+    body[data-theme="dark"] nav {
+      background-color: #333;  /* Keep background dark in dark theme */
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    nav ul li {
+      display: inline;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    body[data-theme="light"] nav ul li a {
+      color: black;  /* Make text color black in light theme */
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body[data-theme="light"] section {
+      background-color: rgba(255, 255, 255, 0.95);
+      color: #333;
+    }
+
+    body[data-theme="dark"] section {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 50px;
+    }
+
+    body[data-theme="light"] footer {
+      background-color: white;  /* Make background white in light theme */
+      color: #333;  /* Set text color to dark gray for contrast */
+    }
+
+    footer a {
+      color: #ff6700;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button id="theme-toggle">🌙</button>
+    <h1 id="title">Welcome to Xiaomi</h1>
+    <div class="language-selector">
+      <label for="language">🌍</label>
+      <select id="language" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="zh">中文</option>
+      </select>
+    </div>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="Lei Jun - CEO of Xiaomi.html" id="about">About Lei Jun</a></li>
+      <li><a href="su7.html" id="su7">Xiaomi SU7 Ultra</a></li>
+      <li><a href="https://forms.gle/DcHVrXTcunMysrY6A" target="_blank">Contact Us</a></li>
+    </ul>
+  </nav>
+  <section>
+    <h2 id="about-xiaomi">About Xiaomi</h2>
+    <p id="desc">This is the homepage of Xiaomi Corporation.</p>
+  </section>
+  <section id="products">
+    <h2 id="products-title">Our Products</h2>
+    <p id="products-desc">Explore Xiaomi's range of innovative technology products.</p>
+  </section>
+  <section id="contact">
+    <h2 id="contact-title">Contact Us</h2>
+    <p id="email">Email: support@xiaomi.com</p>
+    <p id="phone">Phone: +123-456-7890</p>
+  </section>
+  <footer>
+    <p>&copy; 2025 Xiaomi Corporation. All rights reserved.</p>
+    <p>
+      Website developed by
+      <a href="https://dignityforchildren.org/donate/empower-a-child" target="_blank">Dignity DC IT-DEPARTMENT</a><br />
+      by <a href="me.html" id="contact-link" target="_blank">Nicholas</a>
+    </p>
+  </footer>
+
+  <script>
+    // Language translation
+    function changeLanguage() {
+      var language = document.getElementById("language").value;
+      var translations = {
+        en: {
+          title: "Welcome to Xiaomi",
+          about: "About Lei Jun",
+          su7: "Xiaomi SU7 Ultra",
+          "contact-link": "Contact Us",
+          "about-xiaomi": "About Xiaomi",
+          desc: "This is the homepage of Xiaomi Corporation.",
+          "products-title": "Our Products",
+          "products-desc": "Explore Xiaomi's range of innovative technology products.",
+          "contact-title": "Contact Us",
+          email: "Email: support@xiaomi.com",
+          phone: "Phone: +123-456-7890"
+        },
+        zh: {
+          title: "欢迎来到小米",
+          about: "关于雷军",
+          su7: "小米 SU7 Ultra",
+          "contact-link": "联系我们",
+          "about-xiaomi": "关于小米",
+          desc: "这是小米公司的主页。",
+          "products-title": "我们的产品",
+          "products-desc": "探索小米创新科技产品。",
+          "contact-title": "联系我们",
+          email: "邮箱: support@xiaomi.com",
+          phone: "电话: +123-456-7890"
+        }
+      };
+
+      for (var key in translations[language]) {
+        var element = document.getElementById(key);
+        if (element) {
+          element.innerText = translations[language][key];
+        }
+      }
+    }
+
+    // Theme toggle logic
+    const themeToggle = document.getElementById("theme-toggle");
+    const currentTheme = localStorage.getItem("theme") || "dark";
+    document.body.setAttribute("data-theme", currentTheme);
+    themeToggle.textContent = currentTheme === "dark" ? "🌙" : "🌞";
+
+    themeToggle.addEventListener("click", () => {
+      const theme =
+        document.body.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.body.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+      themeToggle.textContent = theme === "dark" ? "🌙" : "🌞";
+    });
+  </script>
+</body>
+</html>
